@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download My Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .instructions h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .step {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .command {
+            background: #2d3748;
+            color: #68d391;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            display: block;
+            overflow-x: auto;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        .os-specific {
+            display: none;
+        }
+
+        .os-specific.active {
+            display: block;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .tab:hover {
+            background: #764ba2;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 BET GUI</h1>
+        <p class="subtitle">Download and run the application on your computer</p>
+
+        <button class="download-btn" onclick="downloadJar()">
+            ⬇️ Download BETGUI.jar
+        </button>
+
+        <div class="instructions">
+            <h2>How to Run</h2>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="showOS('windows')">Windows</button>
+                <button class="tab" onclick="showOS('mac')">Mac</button>
+                <button class="tab" onclick="showOS('linux')">Linux</button>
+            </div>
+
+            <div id="windows" class="os-specific active">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <strong>Install Java (if not already installed)</strong>
+                    <p>Download from <a href="https://www.java.com/download/" target="_blank">java.com/download</a></p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <strong>Double-click the downloaded JAR file</strong>
+                    <p>Or open Command Prompt and run:</p>
+                    <code class="command">java -jar BETGUI.jar</code>
+                </div>
+            </div>
+
+            <div id="mac" class="os-specific">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <strong>Install Java (if not already installed)</strong>
+                    <p>Download from <a href="https://www.java.com/download/" target="_blank">java.com/download</a></p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <strong>Open Terminal and navigate to the download folder</strong>
+                    <code class="command">cd ~/Downloads</code>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <strong>Run the application</strong>
+                    <code class="command">java -jar BETGUI.jar</code>
+                </div>
+            </div>
+
+            <div id="linux" class="os-specific">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <strong>Install Java (if not already installed)</strong>
+                    <code class="command">sudo apt install default-jre</code>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <strong>Open Terminal and navigate to the download folder</strong>
+                    <code class="command">cd ~/Downloads</code>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <strong>Run the application</strong>
+                    <code class="command">java -jar application.jar</code>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>⚠️ Note:</strong> Make sure you have Java installed on your computer. You can check by opening a terminal/command prompt and typing <code>java -version</code>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Detect OS and show relevant instructions
+        window.onload = function() {
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            if (userAgent.indexOf('mac') !== -1) {
+                showOS('mac');
+            } else if (userAgent.indexOf('linux') !== -1) {
+                showOS('linux');
+            } else {
+                showOS('windows');
+            }
+        };
+
+        function showOS(os) {
+            // Hide all OS-specific sections
+            document.querySelectorAll('.os-specific').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show selected OS section
+            document.getElementById(os).classList.add('active');
+            
+            // Highlight active tab
+            event.target.classList.add('active');
+        }
+
+        function downloadJar() {
+            // Path to your JAR file (relative to this HTML file)
+            const jarUrl = 'jars/BETGUI.jar';
+            
+            // Create a temporary link and trigger download
+            const link = document.createElement('a');
+            link.href = jarUrl;
+            link.download = 'BETGUI.jar';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show a confirmation message
+            alert('Download started! Check your downloads folder.');
+        }
+    </script>
+</body>
+</html>
