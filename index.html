@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download My Application</title>
+    <title>Download BET GUI</title>
     <style>
         * {
             margin: 0;
@@ -25,7 +25,7 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
             padding: 40px;
         }
@@ -63,6 +63,25 @@
 
         .download-btn:active {
             transform: translateY(0);
+        }
+
+        .file-structure {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .file-structure .folder {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .file-structure .file {
+            color: #666;
+            margin-left: 20px;
         }
 
         .instructions {
@@ -123,6 +142,14 @@
             color: #856404;
         }
 
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
         .os-specific {
             display: none;
         }
@@ -159,12 +186,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>📦 BET GUI</h1>
-        <p class="subtitle">Download and run the application on your computer</p>
+        <h1>📦 BET GUI Application</h1>
+        <p class="subtitle">Download and run the complete application package</p>
 
-        <button class="download-btn" onclick="downloadJar()">
-            ⬇️ Download BETGUI.jar
+        <div class="info-box">
+            <strong>📁 What you'll download:</strong> A ZIP file containing BETGUI.jar and all required library files
+        </div>
+
+        <button class="download-btn" onclick="downloadZip()">
+            ⬇️ Download BETGUI.zip
         </button>
+
+        <div class="file-structure">
+            <strong>Package Contents:</strong><br>
+            <div class="folder">📁 BETGUI/</div>
+            <div class="file">├── BETGUI.jar (main application)</div>
+            <div class="file">├── 📁 lib/ (dependency libraries)</div>
+            <div class="file">└── 📁 betgui/ (class files)</div>
+        </div>
 
         <div class="instructions">
             <h2>How to Run</h2>
@@ -183,8 +222,14 @@
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <strong>Double-click the downloaded JAR file</strong>
-                    <p>Or open Command Prompt and run:</p>
+                    <strong>Extract the ZIP file</strong>
+                    <p>Right-click BETGUI.zip → "Extract All..."</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <strong>Run the application</strong>
+                    <p>Option A: Double-click <code>run.bat</code> (if included)</p>
+                    <p>Option B: Open Command Prompt in the extracted folder and run:</p>
                     <code class="command">java -jar BETGUI.jar</code>
                 </div>
             </div>
@@ -197,11 +242,16 @@
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <strong>Open Terminal and navigate to the download folder</strong>
-                    <code class="command">cd ~/Downloads</code>
+                    <strong>Extract the ZIP file</strong>
+                    <p>Double-click BETGUI.zip to extract</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
+                    <strong>Open Terminal and navigate to the extracted folder</strong>
+                    <code class="command">cd ~/Downloads/BETGUI</code>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
                     <strong>Run the application</strong>
                     <code class="command">java -jar BETGUI.jar</code>
                 </div>
@@ -215,18 +265,23 @@
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <strong>Open Terminal and navigate to the download folder</strong>
-                    <code class="command">cd ~/Downloads</code>
+                    <strong>Extract the ZIP file</strong>
+                    <code class="command">cd ~/Downloads<br>unzip BETGUI.zip</code>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
+                    <strong>Navigate to the extracted folder</strong>
+                    <code class="command">cd BETGUI</code>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
                     <strong>Run the application</strong>
-                    <code class="command">java -jar application.jar</code>
+                    <code class="command">java -jar BETGUI.jar</code>
                 </div>
             </div>
 
             <div class="note">
-                <strong>⚠️ Note:</strong> Make sure you have Java installed on your computer. You can check by opening a terminal/command prompt and typing <code>java -version</code>
+                <strong>⚠️ Important:</strong> Make sure all files stay in the same folder structure after extraction. The application needs the lib/ folder to run properly!
             </div>
         </div>
     </div>
@@ -245,37 +300,38 @@
         };
 
         function showOS(os) {
-            // Hide all OS-specific sections
             document.querySelectorAll('.os-specific').forEach(el => {
                 el.classList.remove('active');
             });
             
-            // Remove active class from all tabs
             document.querySelectorAll('.tab').forEach(el => {
                 el.classList.remove('active');
             });
             
-            // Show selected OS section
             document.getElementById(os).classList.add('active');
-            
-            // Highlight active tab
             event.target.classList.add('active');
         }
 
-        function downloadJar() {
-            // Path to your JAR file (relative to this HTML file)
-            const jarUrl = 'jars/BETGUI.jar';
+        function downloadZip() {
+            // Check if we're on a local file or a web server
+            if (window.location.protocol === 'file:') {
+                alert('⚠️ Local File Detected!\n\nPlease copy BETGUI.zip manually from:\nC:\\Users\\allen\\OneDrive\\PRISMS\\BET_GUI_Beta\\bet_web\n\nOr run a local web server to enable automatic downloads.\n\nSee instructions below for running a web server.');
+                return;
+            }
+            
+            // Path to your ZIP file (relative to this HTML file)
+            const zipUrl = 'BETGUI.zip';
             
             // Create a temporary link and trigger download
             const link = document.createElement('a');
-            link.href = jarUrl;
-            link.download = 'BETGUI.jar';
+            link.href = zipUrl;
+            link.download = 'BETGUI.zip';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             
             // Show a confirmation message
-            alert('Download started! Check your downloads folder.');
+            alert('Download started! Extract the ZIP file and follow the instructions below.');
         }
     </script>
 </body>
